@@ -1,7 +1,6 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
-import { readFileSync } from "fs";
 import cookieParser from "cookie-parser";
 
 import connectDB from "./mongodb/connectDB/connectDB.js";
@@ -11,6 +10,9 @@ import adminRouter from "./routes/adminModel.routes.js";
 import placementsRouter from "./routes/placementsModel.routes.js";
 import userNotificationsRouter from "./routes/userNotificationModel.routes.js";
 import adminNotificationRouter from "./routes/adminNotificationModel.routes.js";
+
+import path from 'path';
+const __dirname = path.resolve();
 
 dotenv.config();
 const app = express();
@@ -37,6 +39,14 @@ app.use("/api/admin", adminRouter);
 app.use("/api/placements", placementsRouter);
 app.use("/api/usernotifications", userNotificationsRouter);
 app.use("/api/adminnotifications", adminNotificationRouter);
+
+
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 const startServer = async () => {
   try {
