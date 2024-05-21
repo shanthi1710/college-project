@@ -11,8 +11,6 @@ import placementsRouter from "./routes/placementsModel.routes.js";
 import userNotificationsRouter from "./routes/userNotificationModel.routes.js";
 import adminNotificationRouter from "./routes/adminNotificationModel.routes.js";
 
-import path from 'path';
-const __dirname = path.resolve();
 
 dotenv.config();
 const app = express();
@@ -42,11 +40,6 @@ app.use("/api/adminnotifications", adminNotificationRouter);
 
 
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
 
 const startServer = async () => {
   try {
