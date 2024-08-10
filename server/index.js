@@ -11,9 +11,10 @@ import placementsRouter from "./routes/placementsModel.routes.js";
 import userNotificationsRouter from "./routes/userNotificationModel.routes.js";
 import adminNotificationRouter from "./routes/adminNotificationModel.routes.js";
 
-
 dotenv.config();
 const app = express();
+
+console.log(process.env.CLIENT_DOMAIN);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(
@@ -27,19 +28,12 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hi");
-});
-
 app.use("/api/user", userRouter);
 app.use("/api/appliedplacements", appliedPlacementsRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/placements", placementsRouter);
 app.use("/api/usernotifications", userNotificationsRouter);
 app.use("/api/adminnotifications", adminNotificationRouter);
-
-
-
 
 const startServer = async () => {
   try {
