@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { preventServerSleep } from "./preventServerSleep.js";
 
 import connectDB from "./mongodb/connectDB/connectDB.js";
 import userRouter from "./routes/userModel.routes.js";
@@ -13,8 +14,6 @@ import adminNotificationRouter from "./routes/adminNotificationModel.routes.js";
 
 dotenv.config();
 const app = express();
-
-console.log(process.env.CLIENT_DOMAIN);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(
@@ -37,10 +36,8 @@ app.use("/api/adminnotifications", adminNotificationRouter);
 
 const startServer = async () => {
   try {
-    // connect to database
     await connectDB(process.env.MONGODB_URL);
-
-    // the server wil not run if the connectDB fails due to awaiting connectDB function. Also it throws error.
+    preventServerSleep();
     app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
   } catch (error) {
     console.error("Server cannot start:", error);

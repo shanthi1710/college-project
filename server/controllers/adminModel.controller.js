@@ -36,7 +36,6 @@ const registerAdmin = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
-     
   }
 };
 
@@ -149,4 +148,4 @@ const updateAdmin = async (req, res) => {
   }
 };
 
-export { getAdmin, updateAdmin,registerAdmin};
+export { getAdmin, updateAdmin, registerAdmin };
