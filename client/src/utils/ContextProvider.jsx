@@ -73,15 +73,18 @@ const ContextProvider = ({ children }) => {
   async function checkUser(signedInUser) {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userid: parseInt(signedInUser.displayName.substring(0, 4)),
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_DOMAIN}/api/user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userid: parseInt(signedInUser.displayName.substring(0, 4)),
+          }),
+        }
+      );
       const data = await response.json();
 
       if (data === "unregistered") {
