@@ -37,8 +37,10 @@ app.use("/api/adminnotifications", adminNotificationRouter);
 const startServer = async () => {
   try {
     await connectDB(process.env.MONGODB_URL);
-    preventServerSleep();
-    app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
+    app.listen(PORT, () => {
+      preventServerSleep();
+      console.log(`Server is running on port ${PORT}`);
+    });
   } catch (error) {
     console.error("Server cannot start:", error);
   }
